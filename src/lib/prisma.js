@@ -1,12 +1,14 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require("../generated/prisma");
+const { PrismaPg } = require("@prisma/adapter-pg");
 
-// Reuse a single PrismaClient instance across the app (and across
-// hot-reloads in dev) to avoid exhausting DB connections.
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+
 const globalForPrisma = globalThis;
 
 const prisma =
   globalForPrisma.prisma ||
   new PrismaClient({
+    adapter,
     log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
   });
 
