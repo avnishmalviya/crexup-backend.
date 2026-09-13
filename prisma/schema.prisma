@@ -1,9 +1,8 @@
 // Crexup — AI Influencer Marketing Platform
 // Prisma schema (PostgreSQL)
 
-generator client {
-  provider = "prisma-client-js"
-}
+generator client { provider = "prisma-client-js" output = "../src/generated/prisma" }
+
 
 datasource db {
   provider = "postgresql"
