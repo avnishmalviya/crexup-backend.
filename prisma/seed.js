@@ -1,7 +1,10 @@
-const { PrismaClient } = require("@prisma/client");
+require("dotenv/config");
+const { PrismaClient } = require("../src/generated/prisma");
+const { PrismaPg } = require("@prisma/adapter-pg");
 const bcrypt = require("bcrypt");
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   const email = process.env.SEED_ADMIN_EMAIL || "admin@crexup.com";
